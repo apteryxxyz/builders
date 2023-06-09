@@ -17,7 +17,7 @@
 
 ## 🤔 About
 
-Next SA (`next-sa`) is an advanced Next.js 13 server action builder. It provides a convenient and robust way to create server actions with type-safe validation using zod and optional caching using lru-cache. With Next SA, you can easily build powerful server-side functionality while ensuring data integrity and performance.
+Next SA (`next-sa`) is an advanced Next.js 13 server action builder. It provides a convenient and robust way to create server actions with type-safe validation using zod, caching using lru-cache and timeouts. With Next SA, you can easily build powerful server-side functionality while ensuring data integrity and performance.
 
 ### 🚀 Features
 
@@ -72,14 +72,14 @@ interface ServerActionBuilder {
 }
 ```
 
- - `input(input: ZodType)`: Specifies the input parser for the server action. The input parser is used to validate the input data for the server action. If the input data does not match the specified parser, the server action will fail with a validation error. You can pass a function where the first and only parameter is `zod`s `z`, saves having to manually import `zod`.
+ - `input(input: ZodType)`: The input parser is used to validate the input data for the server action. If the input data does not match the specified parser, the server action will fail with a validation error. You can pass a function where the first and only parameter is `zod`s `z`, saves having to manually import `zod`.
 
- - `cache(cache: { max: number; ttl: string; })`: Specifies the caching options for the server action. The caching options are used to cache the results of the server action. If the server action is executed again with the same input data, the cached result will be returned instead of executing the server action again.
+ - `cache(cache: { max: number; ttl: string; })`: The caching options are used to cache the results of the server action. If the server action is executed again with the same input data, the cached result will be returned instead of executing the server action again.
     - `max: number`: Sets the maximum number of items to cache. If the number of cached items exceeds the specified maximum, the least recently used (LRU) items will be removed from the cache.
-    - `ttl: string`: Sets the time-to-live (TTL) duration for the cached items. If the cached items are not accessed within the specified TTL duration, they will be removed from the cache. String will be parsed by [enhanced-ms](https://npmjs.com/enhanced-ms).
+    - `ttl: string`: Sets the time-to-live (TTL) duration for the cached items. If the cached items are not accessed within the specified TTL duration, they will be removed from the cache. String will be parsed using [enhanced-ms](https://npmjs.com/enhanced-ms).
 
- - `timeout(timeout: { after: string; })`: Specifies the timeout options for the server action. The timeout options are used to cancel the server action if it takes longer than the specified timeout duration to execute. If the server action is cancelled, it will fail with a timeout error.
-    - `after: string`: Sets the timeout duration for the server action. If the server action takes longer than the specified duration to execute, it will be cancelled. String will be parsed by [enhanced-ms](https://npmjs.com/enhanced-ms).
+ - `timeout(timeout: { after: string; })`: The timeout options are used to cancel the server action if it takes longer than the specified timeout duration to execute. If the server action is cancelled, it will fail with a timeout error.
+    - `after: string`: Sets the timeout duration for the server action. String will be parsed using [enhanced-ms](https://npmjs.com/enhanced-ms).
 
  - `definition(action: (input: TInput) => Promise<TData>)`: Defines the actual server action logic, then builds it. The action function is used to execute the server action. It receives the input data as an argument and returns a promise that resolves to the result of the server action. You are free to throw errors in this function, they will be handled. This must be called last.
 
