@@ -1,12 +1,12 @@
 'use client';
 
 import { useCallback, useRef, useState } from 'react';
-import { ServerActionError } from './error';
+import { ServerActionError } from '../common/error';
 import type {
     ServerAction,
     ServerActionDataType,
     ServerActionInputType,
-} from './types';
+} from '../common/types';
 
 /**
  * Prepare a server action to be executed later. Returns a function that can be called to execute the action, along with the current pending state, data state and error state.

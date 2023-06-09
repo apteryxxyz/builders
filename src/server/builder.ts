@@ -2,9 +2,9 @@ import { ms } from 'enhanced-ms';
 import { LRUCache } from 'lru-cache';
 import objectHash from 'object-hash';
 import z from 'zod';
-import { ServerActionError } from './error';
+import { ServerActionError } from '../common/error';
+import { ServerAction } from '../common/types';
 import { createTimeoutPromise, fromZodError } from './helpers';
-import { ServerAction } from './types';
 
 type Input = z.ZodType;
 type Cache = { max: number; ttl: string };

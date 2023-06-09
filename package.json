@@ -26,7 +26,7 @@
     "files": ["*.js", "*.d.ts"],
     "scripts": {
         "build": "tsc",
-        "clean": "rimraf *.js *.d.ts *.js.map",
+        "clean": "rimraf client common server",
         "lint": "eslint --ext .ts,.tsx src",
         "format": "prettier --write src/**/*.{ts,tsx} && eslint --fix --ext .ts,.tsx src/"
     },
