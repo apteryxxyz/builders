@@ -29,6 +29,11 @@ export function useServerAction<
     TInput extends ServerActionInputType<TAction>,
     TData extends ServerActionDataType<TAction>
 >(action: TAction) {
+    if (typeof action !== 'function' || !action.__sa)
+        throw new TypeError(
+            "Parameter 'action' of 'useServerAction' must be a server action built using next-sa"
+        );
+
     const doAction = useRef(action);
 
     const [isPending, setIsPending] = useState(false);

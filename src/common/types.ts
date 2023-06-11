@@ -3,9 +3,9 @@ import type { ServerActionError } from './error';
 /**
  * Represents a server action built using next-sa.
  */
-export type ServerAction<TInput, TData> = (
+export type ServerAction<TInput, TData> = ((
     input: TInput
-) => Promise<ServerActionPayload<TData>>;
+) => Promise<ServerActionPayload<TData>>) & { __sa: true };
 
 /**
  * Represents the return type of a server action built using next-sa.

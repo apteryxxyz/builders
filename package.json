@@ -1,6 +1,6 @@
 {
     "name": "next-sa",
-    "version": "0.1.0",
+    "version": "0.1.1",
     "description": "Improved Next.js 13 server actions, with type-safe validation, caching and timeout",
     "packageManager": "yarn@3.6.0",
     "license": "MIT",
@@ -23,7 +23,7 @@
     "bugs": {
         "url": "https://github.com/apteryxxyz/next-sa/issues"
     },
-    "files": ["*.js", "*.d.ts"],
+    "files": ["client", "common", "server"],
     "scripts": {
         "build": "tsc",
         "clean": "rimraf client common server",

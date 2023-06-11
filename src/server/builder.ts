@@ -92,18 +92,47 @@ export const createServerActionBuilder = <
 >(
     options: TOptions = {} as TOptions
 ): ServerActionBuilder<TOptions> => ({
-    input: input =>
-        createServerActionBuilder({
-            ...options,
-            input: typeof input === 'function' ? input(z) : input,
-        }),
+    input: input => {
+        const schema = typeof input === 'function' ? input(z) : input;
 
-    cache: (cache: Cache) => createServerActionBuilder({ ...options, cache }),
+        if (!(schema instanceof z.ZodType))
+            throw new TypeError("Parameter 'input' must be a zod schema");
 
-    timeout: (timeout: Timeout) =>
-        createServerActionBuilder({ ...options, timeout }),
+        return createServerActionBuilder({ ...options, input: schema });
+    },
+
+    cache: cache => {
+        if (typeof cache !== 'object' || cache === null)
+            throw new TypeError("Parameter 'cache' must be an object");
+        if (typeof cache.max !== 'number' || cache.max <= 0)
+            throw new TypeError(
+                "Parameter 'cache.max' must be a number greater than zero"
+            );
+        if (typeof cache.ttl !== 'string' || (ms(cache.ttl) ?? 0) <= 0)
+            throw new TypeError(
+                "Parameter 'cache.ttl' must be a string that parses to a number greater than zero"
+            );
+
+        return createServerActionBuilder({ ...options, cache });
+    },
+
+    timeout: timeout => {
+        if (typeof timeout !== 'object' || timeout === null)
+            throw new TypeError("Parameter 'timeout' must be an object");
+        if (typeof timeout.after !== 'string' || (ms(timeout.after) ?? 0) <= 0)
+            throw new TypeError(
+                "Parameter 'timeout.after' must be a string that parses to a number greater than zero"
+            );
+        return createServerActionBuilder({ ...options, timeout });
+    },
 
     definition: action => {
+        if (
+            typeof action !== 'function' ||
+            action.constructor.name !== 'AsyncFunction'
+        )
+            throw new TypeError("Parameter 'action' must be an async function");
+
         type TInput = Parameters<typeof action>[0];
         type TData = Awaited<ReturnType<typeof action>>;
 
@@ -116,7 +145,7 @@ export const createServerActionBuilder = <
                 ttl: ms(options.cache.ttl) ?? 0,
             });
 
-        return async function serverAction(input: TInput) {
+        async function serverAction(input: TInput) {
             /* -- CACHE GET START -- */
             const identifier = objectHash(input ?? null);
             const existing = cache?.get(identifier) as TData | undefined;
@@ -162,7 +191,9 @@ export const createServerActionBuilder = <
             /* -- CACHE SET END -- */
 
             return output;
-        };
+        }
+
+        return Object.assign(serverAction, { __sa: true as const });
     },
 });
 
