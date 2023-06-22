@@ -2,11 +2,7 @@
 
 import { useCallback, useRef, useState } from 'react';
 import { ServerActionError } from '../common/error';
-import type {
-    ServerAction,
-    ServerActionDataType,
-    ServerActionInputType,
-} from '../common/types';
+import type { ServerAction } from '../common/types';
 
 /**
  * Prepare a server action to be executed later. Returns a function that can be called to execute the action, along with the current pending state, data state and error state.
@@ -24,14 +20,12 @@ import type {
  * if (data) return <p>Data: {data}</p>;
  * return <p>Not yet executed</p>;
  */
-export function useServerAction<
-    TAction extends ServerAction<any, any>,
-    TInput extends ServerActionInputType<TAction>,
-    TData extends ServerActionDataType<TAction>
->(action: TAction) {
+export function useServerAction<TInput, TData>(
+    action: ServerAction<TInput, TData>
+) {
     if (typeof action !== 'function' || !action.__sa)
         throw new TypeError(
-            "Parameter 'action' of 'useServerAction' must be a server action built using next-sa"
+            "Parameter 'action' of 'useServerAction' must be a server action built using Next SA"
         );
 
     const doAction = useRef(action);
@@ -40,24 +34,25 @@ export function useServerAction<
     const [data, setData] = useState<TData | null>(null);
     const [error, setError] = useState<ServerActionError | null>(null);
 
-    const execute = useCallback(
-        async (...input: TInput extends undefined ? [] : [TInput]) => {
-            setIsPending(true);
-            if (error !== null) setError(null);
-            if (data !== null) setData(null);
+    type TExecute = TInput extends undefined
+        ? () => Promise<void>
+        : (input: TInput) => Promise<void>;
 
-            const output = await doAction.current(...input);
-            if (output.success) setData(output.data);
-            else setError(ServerActionError.fromObject(output.error));
-            setIsPending(false);
-        },
-        []
-    );
+    const execute = useCallback(async (input: TInput) => {
+        setIsPending(true);
+        if (error !== null) setError(null);
+        if (data !== null) setData(null);
+
+        const output = await doAction.current(input);
+        if (output.success) setData(output.data);
+        else setError(ServerActionError.fromObject(output.error));
+        setIsPending(false);
+    }, []) as TExecute;
 
     return {
         /**
          * Execute the server action.
-         * @param input The input to pass to the server action.
+         * @param [input] The input to pass to the server action.
          */
         execute,
         /**
