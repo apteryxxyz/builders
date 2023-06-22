@@ -166,14 +166,12 @@ export default function Page() {
 }
 ```
 
-While on the server, you can use the `executeServerAction` function.
+While on the server, you can use the `executeServerAction` function to immediately execute a server action.
 
 ```tsx
 // app/page.tsx
 'use server';
 
-import { useTransition } from 'react';
-// 'executeServerAction' can be used on both the client and server, so it is exported from 'next-sa/client'
 import { executeServerAction } from 'next-sa/client';
 import { sayHello } from './actions';
 

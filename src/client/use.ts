@@ -40,16 +40,19 @@ export function useServerAction<
     const [data, setData] = useState<TData | null>(null);
     const [error, setError] = useState<ServerActionError | null>(null);
 
-    const execute = useCallback(async (input: TInput) => {
-        setIsPending(true);
-        if (error !== null) setError(null);
-        if (data !== null) setData(null);
+    const execute = useCallback(
+        async (...input: TInput extends undefined ? [] : [TInput]) => {
+            setIsPending(true);
+            if (error !== null) setError(null);
+            if (data !== null) setData(null);
 
-        const output = await doAction.current(input);
-        if (output.success) setData(output.data);
-        else setError(ServerActionError.fromObject(output.error));
-        setIsPending(false);
-    }, []);
+            const output = await doAction.current(...input);
+            if (output.success) setData(output.data);
+            else setError(ServerActionError.fromObject(output.error));
+            setIsPending(false);
+        },
+        []
+    );
 
     return {
         /**

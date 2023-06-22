@@ -2,9 +2,10 @@
     "extends": "ts-config-apteryx",
     "compilerOptions": {
         "outDir": ".",
-        "target": "ES2021",
-        "moduleResolution": "nodenext"
+        "esModuleInterop": true,
+        "moduleResolution": "nodenext",
+        "sourceMap": false
     },
-    "exclude": ["./node_modules/", "./dist/", "./**/_*/"],
+    "exclude": ["./node_modules/", "*.d.ts"],
     "include": ["./src/**/*.ts"]
 }

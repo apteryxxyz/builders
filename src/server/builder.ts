@@ -1,12 +1,12 @@
 import { ms } from 'enhanced-ms';
 import { LRUCache } from 'lru-cache';
 import objectHash from 'object-hash';
-import z from 'zod';
+import { ZodType, z } from 'zod';
 import { ServerActionError } from '../common/error';
 import { ServerAction } from '../common/types';
 import { createTimeoutPromise, fromZodError } from './helpers';
 
-type Input = z.ZodType;
+type Input = ZodType;
 type Cache = { max: number; ttl: string };
 type Timeout = { after: string };
 
@@ -94,9 +94,9 @@ export const createServerActionBuilder = <
 ): ServerActionBuilder<TOptions> => ({
     input: input => {
         const schema = typeof input === 'function' ? input(z) : input;
-
-        if (!(schema instanceof z.ZodType))
-            throw new TypeError("Parameter 'input' must be a zod schema");
+        const type = Object.getPrototypeOf(schema.constructor).name;
+        if (type !== 'ZodType')
+            throw new TypeError("Parameter 'input' must be a zod type");
 
         return createServerActionBuilder({ ...options, input: schema });
     },
@@ -193,7 +193,9 @@ export const createServerActionBuilder = <
             return output;
         }
 
-        return Object.assign(serverAction, { __sa: true as const });
+        return Object.assign(serverAction, {
+            __sa: true as const,
+        }) as ServerAction<TInput, TData>;
     },
 });
 

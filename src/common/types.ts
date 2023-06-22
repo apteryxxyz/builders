@@ -4,7 +4,7 @@ import type { ServerActionError } from './error';
  * Represents a server action built using next-sa.
  */
 export type ServerAction<TInput, TData> = ((
-    input: TInput
+    ...input: TInput extends undefined ? [] : [TInput]
 ) => Promise<ServerActionPayload<TData>>) & { __sa: true };
 
 /**
@@ -21,18 +21,10 @@ export type ServerActionPayload<TData> =
  * Extract the input type of a server action.
  */
 export type ServerActionInputType<TAction extends ServerAction<any, any>> =
-    TAction extends ServerAction<infer TInput, any>
-        ? TInput extends undefined
-            ? never
-            : TInput
-        : never;
+    TAction extends ServerAction<infer TInput, any> ? TInput : undefined;
 
 /**
  * Extract the output type of a server action.
  */
 export type ServerActionDataType<TAction extends ServerAction<any, any>> =
-    TAction extends ServerAction<any, infer TOutput>
-        ? TOutput extends undefined
-            ? never
-            : TOutput
-        : never;
+    TAction extends ServerAction<any, infer TOutput> ? TOutput : undefined;

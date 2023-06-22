@@ -1,9 +1,9 @@
-import { ServerActionError } from './error';
+import { ServerActionError } from '../common/error';
 import type {
     ServerAction,
     ServerActionDataType,
     ServerActionInputType,
-} from './types';
+} from '../common/types';
 
 /**
  * Execute the server action immediately and return the output data, or throw an error if the action failed.
@@ -20,13 +20,16 @@ export async function executeServerAction<
     TAction extends ServerAction<any, any>,
     TInput extends ServerActionInputType<TAction>,
     TData extends ServerActionDataType<TAction>
->(action: TAction, input: TInput): Promise<TData> {
+>(
+    action: TAction,
+    ...input: TInput extends undefined ? [] : [TInput]
+): Promise<TData> {
     if (typeof action !== 'function' || !action.__sa)
         throw new TypeError(
             "Parameter 'action' of 'executeServerAction' must be a server action built using next-sa"
         );
 
-    return action(input).then(output => {
+    return action(...input).then(output => {
         if (output.success) return output.data;
         throw ServerActionError.fromObject(output.error);
     });
