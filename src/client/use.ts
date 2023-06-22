@@ -23,9 +23,9 @@ import type { ServerAction } from '../common/types';
 export function useServerAction<TInput, TData>(
     action: ServerAction<TInput, TData>
 ) {
-    if (typeof action !== 'function' || !action.__sa)
+    if (typeof action !== 'function')
         throw new TypeError(
-            "Parameter 'action' of 'useServerAction' must be a server action built using Next SA"
+            "Parameter 'action' of 'useServerAction' must be a server action"
         );
 
     const doAction = useRef(action);

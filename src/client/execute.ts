@@ -22,7 +22,7 @@ export async function executeServerAction<TInput, TData>(
     action: ServerAction<TInput, TData>,
     input?: TInput
 ) {
-    if (typeof action !== 'function' || !action.__sa)
+    if (typeof action !== 'function')
         throw new TypeError(
             "Parameter 'action' of 'executeServerAction' must be a server action built using next-sa"
         );

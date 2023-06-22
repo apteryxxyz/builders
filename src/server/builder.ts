@@ -145,7 +145,7 @@ export const createServerActionBuilder = <
                 ttl: ms(options.cache.ttl) ?? 0,
             });
 
-        async function serverAction(input: TInput) {
+        return async function serverAction(input: TInput) {
             /* -- CACHE GET START -- */
             const identifier = objectHash(input ?? null);
             const existing = cache?.get(identifier) as TData | undefined;
@@ -191,11 +191,7 @@ export const createServerActionBuilder = <
             /* -- CACHE SET END -- */
 
             return output;
-        }
-
-        return Object.assign(serverAction, {
-            __sa: true as const,
-        }) as ServerAction<TInput, TData>;
+        } as ServerAction<TInput, TData>;
     },
 });
 
