@@ -23,29 +23,12 @@
     "bugs": {
         "url": "https://github.com/apteryxxyz/next-sa/issues"
     },
-    "files": ["dist"],
-    "main": "./dist/index.js",
-    "types": "./dist/index.d.ts",
-    "exports": {
-        ".": {
-            "import": "./dist/index.js",
-            "require": "./dist/index.js",
-            "types": "./dist/index.d.ts"
-        },
-        "./client": {
-            "import": "./dist/client/index.js",
-            "require": "./dist/client/index.js",
-            "types": "./dist/client/index.d.ts"
-        },
-        "./server": {
-            "import": "./dist/server/index.js",
-            "require": "./dist/server/index.js",
-            "types": "./dist/server/index.d.ts"
-        }
-    },
+    "files": ["index.js", "index.d.ts", "client", "common", "server"],
+    "main": "./index.js",
+    "types": "./index.d.ts",
     "scripts": {
         "build": "tsc",
-        "clean": "rimraf dist",
+        "clean": "rimraf index.js index.d.ts client common server",
         "lint": "eslint --ext .ts,.tsx src",
         "format": "prettier --write src/**/*.{ts,tsx} && eslint --fix --ext .ts,.tsx src/"
     },
