@@ -1,13 +1,8 @@
 import { ServerActionError } from '../common/error';
-import type {
-    ServerAction,
-    ServerActionDataType,
-    ServerActionInputType,
-} from '../common/types';
+import type { ServerAction } from '../common/types';
 
 /**
  * Execute the server action immediately and return the output data, or throw an error if the action failed.
- * Works well with React.js `startTransition`.
  * @param action The server action to execute.
  * @param input The input to pass to the server action.
  * @returns The output data of the server action.
@@ -16,12 +11,8 @@ import type {
  *   .then(data => {}) // do something with the data
  *   .catch(error => {}) // handle the error
  */
-export async function executeServerAction<
-    TAction extends ServerAction<any, any>,
-    TInput extends ServerActionInputType<TAction>,
-    TData extends ServerActionDataType<TAction>
->(
-    action: TAction,
+export async function executeServerAction<TInput, TData>(
+    action: ServerAction<TInput, TData>,
     ...input: TInput extends undefined ? [] : [TInput]
 ): Promise<TData> {
     if (typeof action !== 'function' || !action.__sa)
