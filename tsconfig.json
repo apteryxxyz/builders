@@ -3,9 +3,8 @@
     "compilerOptions": {
         "outDir": ".",
         "esModuleInterop": true,
-        "moduleResolution": "nodenext",
         "sourceMap": false
     },
-    "exclude": ["./node_modules/", "*.d.ts"],
+    "exclude": ["./node_modules/", "*.js", "**/**/*.d.ts"],
     "include": ["./src/**/*.ts"]
 }

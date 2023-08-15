@@ -8,7 +8,11 @@ node_modules/
 .pnp.*
 
 # Build
-*.js
-*.d.ts
-*.js.map
-*.tgz
+client/
+common/
+server/
+!src/client/
+!src/common/
+!src/server/
+index.d.ts
+index.js

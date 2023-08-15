@@ -1,29 +1,29 @@
 <div align="center">
-    <h1><strong>Next SA</strong></h1>
-    <i>Improved Next.js 13 server actions, with type-safe validation, caching and timeout</i><br>
-    <code>npm install next-sa</code>
+  <h1><strong>Next SA</strong></h1>
+  <i>Improved Next.js 13 server actions, with type-safe validation and timeouts</i><br>
+  <code>npm install next-sa</code>
 </div>
 
 <div align="center">
-    <img alt="package version" src="https://img.shields.io/npm/v/next-sa?label=version">
-    <img alt="total downloads" src="https://img.shields.io/npm/dt/next-sa">
-    <br>
-    <a href="https://github.com/apteryxxyz/next-sa"><img alt="next-sa repo stars" src="https://img.shields.io/github/stars/apteryxxyz/next-sa?style=social"></a>
-    <a href="https://github.com/apteryxxyz"><img alt="apteryxxyz followers" src="https://img.shields.io/github/followers/apteryxxyz?style=social"></a>
-    <a href="https://discord.gg/vZQbMhsaKY"><img src="https://discordapp.com/api/guilds/829836158007115806/widget.png?style=shield" alt="Discord Banner 2"/></a>
+  <img alt="package version" src="https://img.shields.io/npm/v/next-sa?label=version">
+  <img alt="total downloads" src="https://img.shields.io/npm/dt/next-sa">
+  <br>
+  <a href="https://github.com/apteryxxyz/next-sa"><img alt="next-sa repo stars" src="https://img.shields.io/github/stars/apteryxxyz/next-sa?style=social"></a>
+  <a href="https://github.com/apteryxxyz"><img alt="apteryxxyz followers" src="https://img.shields.io/github/followers/apteryxxyz?style=social"></a>
+  <a href="https://discord.gg/vZQbMhsaKY"><img src="https://discordapp.com/api/guilds/829836158007115806/widget.png?style=shield" alt="Discord Banner 2"/></a>
 </div>
 
 ---
 
 ## 🤔 About
 
-Next SA (`next-sa`) is an advanced Next.js 13 server action builder. It provides a convenient and robust way to create server actions with type-safe validation using zod, caching using lru-cache and timeouts. With Next SA, you can easily build powerful server-side functionality while ensuring data integrity and performance.
+Next SA (`next-sa`) is an advanced Next.js 13 server action builder. It provides a convenient and robust way to create server actions with type-safe validation using zod along with support for timeouts. With Next SA, you can easily build powerful server-side functionality while ensuring data integrity and performance.
+
+Next SA is still pre its 1.0 release, and as such, things may change. If you find any bugs or have any suggestions, please open an issue on the GitHub repository.
 
 ### 🚀 Features
 
  - **Type-safe validation**: Next SA leverages the `zod` library to enable comprehensive input validation. You can define parsers for your server actions, ensuring that the input data adheres to specific types and shapes. This helps catch errors early and ensures the consistency and correctness of your data.
-
- - **Response caching**: Next SA includes built-in caching capabilities using the `lru-cache` library. You can configure caching options, such as setting a maximum number of cached items and specifying a time-to-live (TTL) duration. Caching can significantly improve the performance of your server actions by storing and serving previously computed results.
 
  - **Timeout handling**: Next SA allows you to set timeouts for your server actions. If an action takes longer than the specified timeout duration to execute, it will be cancelled automatically. This helps prevent long-running actions from impacting the overall performance and responsiveness of your application.
 
@@ -34,15 +34,15 @@ Next SA (`next-sa`) is an advanced Next.js 13 server action builder. It provides
 ## 🏓 Table of Contents
 
  - [🤔 About](#-about)
-    - [🚀 Features](#-features)
+  - [🚀 Features](#-features)
  - [🏓 Table of Contents](#-table-of-contents)
  - [📦 Installation](#-installation)
  - [📚 Documentation](#-documentation)
-    - [ServerActionBuilder](#serveractionbuilder)
-    - [ServerAction](#serveraction)
+  - [ServerActionBuilder](#serveractionbuilder)
+  - [ServerAction](#serveraction)
  - [📖 Examples](#-examples)
-    - [📝 Defining a server action](#-defining-a-server-action)
-    - [📝 Using a server action](#-using-a-server-action)
+  - [📝 Defining a server action](#-defining-a-server-action)
+  - [📝 Using a server action](#-using-a-server-action)
 
 ---
 
@@ -65,21 +65,18 @@ Represents a builder to create server actions.
 ```ts
 // TypeScript type definition
 interface ServerActionBuilder {
-    input<TInput extends ZodType>(input: TInput | (z: typeof z) => TInput): ServerActionBuilder;
-    cache<TCache extends { max: number; ttl: string; }>(cache: TCache): ServerActionBuilder;
-    timeout<TTimeout extends { after: string; }>(timeout: TTimeout): ServerActionBuilder;
-    definition<TInput, TData>(action: (input: TInput) => Promise<TData>): ServerAction<TInput, TData>;
+  input<TInput extends ZodType>(input: TInput | (z: typeof z) => TInput): ServerActionBuilder;
+  timeout<TTimeout extends { after: string; }>(timeout: TTimeout): ServerActionBuilder;
+  definition<TInput, TData>(action: (input: TInput) => Promise<TData>): ServerAction<TInput, TData>;
 }
 ```
 
  - `input(input: ZodType)`: The input parser is used to validate the input data for the server action. If the input data does not match the specified parser, the server action will fail with a validation error. You can pass a function where the first and only parameter is `zod`s `z`, saves having to manually import `zod`.
 
- - `cache(cache: { max: number; ttl: string; })`: The caching options are used to cache the results of the server action. If the server action is executed again with the same input data, the cached result will be returned instead of executing the server action again.
-    - `max: number`: Sets the maximum number of items to cache. If the number of cached items exceeds the specified maximum, the least recently used (LRU) items will be removed from the cache.
-    - `ttl: string`: Sets the time-to-live (TTL) duration for the cached items. If the cached items are not accessed within the specified TTL duration, they will be removed from the cache. String will be parsed using [enhanced-ms](https://npmjs.com/enhanced-ms).
 
  - `timeout(timeout: { after: string; })`: The timeout options are used to cancel the server action if it takes longer than the specified timeout duration to execute. If the server action is cancelled, it will fail with a timeout error.
-    - `after: string`: Sets the timeout duration for the server action. String will be parsed using [enhanced-ms](https://npmjs.com/enhanced-ms).
+   - `after: string`: Sets the timeout duration for the server action. String will be parsed using [enhanced-ms](https://npmjs.com/enhanced-ms).
+
 
  - `definition(action: (input: TInput) => Promise<TData>)`: Defines the actual server action logic, then builds it. The action function is used to execute the server action. It receives the input data as an argument and returns a promise that resolves to the result of the server action. You are free to throw errors in this function, they will be handled. This must be called last.
 
@@ -99,10 +96,10 @@ Represents what the server action builder `definition` method returns.
 ```ts
 // TypeScript type definition
 type ServerAction<TInput, TData> = (input: TInput) =>
-    Promise<
-        | { success: true; data: TData }
-        | { success: false; error: { kind: 'Action' | 'Timeout' | 'Validation'; message: string; }
-    }>;
+  Promise<
+    | { success: true; data: TData }
+    | { success: false; error: { kind: 'Action' | 'Timeout' | 'Validation'; message: string; }
+  }>;
 ```
 
 A server action returns a promise that resolves to a payload object, which contains either the result of the server action or an error. Server actions will never throw an error, instead they will return an error payload object.
@@ -110,8 +107,8 @@ A server action returns a promise that resolves to a payload object, which conta
  - `{ success: true; data: TData }`: Represents a successful server action. The `data` property contains the result of the server action.
 
  - `{ success: false; error: { kind: 'Action' | 'Timeout' | 'Validation'; message: string; } }`: Represents a failed server action. The `error` property contains an error object with the following properties:
-    - `kind: 'Action' | 'Timeout' | 'Validation'`: The kind of error that occured.
-    - `message: string`: The error message, can be displayed to the user.
+  - `kind: 'Action' | 'Timeout' | 'Validation'`: The kind of error that occured.
+  - `message: string`: The error message, can be displayed to the user.
 
 #### Error Kinds
 
@@ -134,11 +131,10 @@ To define a server action, you can use the `createServerAction` function that re
 import { createServerAction } from 'next-sa/server';
 
 export const sayHello = createServerAction()
-    .input(z.string().min(3).max(32))
-    .cache({ max: 100, ttl: '1h' })
-    .timeout({ after: '10s' })
-    .definition(async name => `Hello ${name}!`);
-//                  ^? string
+  .input(z.string().min(3).max(32))
+  .timeout({ after: '10s' })
+  .definition(async name => `Hello ${name}!`);
+//                   ^? string
 ```
 
 ### 📝 Using a server action
@@ -155,18 +151,18 @@ import { useServerAction } from 'next-sa/client';
 import { sayHello } from './actions';
 
 export default function Page() {
-    const { execute, data, error, isPending } = useServerAction(sayHello);
+  const { execute, data, error, isPending } = useServerAction(sayHello);
 
-    return <>
-        {isPending && <p>Loading...</p>}
-        {error && <p>Error: {error.message}</p>}
-        {data && <p>Data: {data}</p>}
-        <button onClick={execute.bind(null, 'World')}>Say Hello</button>
-    </>;
+  return <>
+    {isPending && <p>Loading...</p>}
+    {error && <p>Error: {error.message}</p>}
+    {data && <p>Data: {data}</p>}
+    <button onClick={execute.bind(null, 'World')}>Say Hello</button>
+  </>;
 }
 ```
 
-While on the server, you can use the `executeServerAction` function to immediately execute a server action.
+While on the server (also works on the client), you can use the `executeServerAction` function to immediately execute a server action.
 
 ```tsx
 // app/page.tsx
@@ -176,9 +172,9 @@ import { executeServerAction } from 'next-sa/client';
 import { sayHello } from './actions';
 
 export default async function Page() {
-    // Will throw an error if the action fails
-    const data = await executeServerAction(sayHello, 'World');
+  // Will throw an error if the action fails
+  const data = await executeServerAction(sayHello, 'World');
 
-    return <p>Data: {data}</p>;
+  return <p>Data: {data}</p>;
 }
 ```

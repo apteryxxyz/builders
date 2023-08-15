@@ -21,51 +21,51 @@ import type { ServerAction } from '../common/types';
  * return <p>Not yet executed</p>;
  */
 export function useServerAction<TInput, TData>(
-    action: ServerAction<TInput, TData>
+  action: ServerAction<TInput, TData>
 ) {
-    if (typeof action !== 'function')
-        throw new TypeError(
-            "Parameter 'action' of 'useServerAction' must be a server action"
-        );
+  if (typeof action !== 'function')
+    throw new TypeError(
+      "Parameter 'action' of 'useServerAction' must be a server action"
+    );
 
-    const doAction = useRef(action);
+  const doAction = useRef(action);
 
-    const [isPending, setIsPending] = useState(false);
-    const [data, setData] = useState<TData | null>(null);
-    const [error, setError] = useState<ServerActionError | null>(null);
+  const [isPending, setIsPending] = useState(false);
+  const [data, setData] = useState<TData | null>(null);
+  const [error, setError] = useState<ServerActionError | null>(null);
 
-    type TExecute = TInput extends undefined
-        ? () => Promise<void>
-        : (input: TInput) => Promise<void>;
+  type TExecute = TInput extends undefined
+    ? () => Promise<void>
+    : (input: TInput) => Promise<void>;
 
-    const execute = useCallback(async (input: TInput) => {
-        setIsPending(true);
-        if (error !== null) setError(null);
-        if (data !== null) setData(null);
+  const execute = useCallback(async (input: TInput) => {
+    setIsPending(true);
+    if (error !== null) setError(null);
+    if (data !== null) setData(null);
 
-        const output = await doAction.current(input);
-        if (output.success) setData(output.data);
-        else setError(ServerActionError.fromObject(output.error));
-        setIsPending(false);
-    }, []) as TExecute;
+    const output = await doAction.current(input);
+    if (output.success) setData(output.data);
+    else setError(ServerActionError.fromObject(output.error));
+    setIsPending(false);
+  }, []) as TExecute;
 
-    return {
-        /**
-         * Execute the server action.
-         * @param [input] The input to pass to the server action.
-         */
-        execute,
-        /**
-         * Whether the server action is currently pending.
-         */
-        isPending,
-        /**
-         * The data returned by the server action, if any.
-         */
-        data,
-        /**
-         * The error returned by the server action, if any.
-         */
-        error,
-    };
+  return {
+    /**
+     * Execute the server action.
+     * @param [input] The input to pass to the server action.
+     */
+    execute,
+    /**
+     * Whether the server action is currently pending.
+     */
+    isPending,
+    /**
+     * The data returned by the server action, if any.
+     */
+    data,
+    /**
+     * The error returned by the server action, if any.
+     */
+    error,
+  };
 }
