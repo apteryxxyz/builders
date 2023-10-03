@@ -1,0 +1,11 @@
+{
+  "name": "@builders/tsup-config",
+  "private": true,
+  "files": [
+    "index.js"
+  ],
+  "devDependencies": {
+    "esbuild-plugin-version-injector": "^1.2.1",
+    "tsup": "^7.2.0"
+  }
+}
