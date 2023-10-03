@@ -1,18 +1,10 @@
-# Node Modules
+# Node
 node_modules/
 
-# Yarn
-.yarn/*
-!.yarn/plugins
-!.yarn/releases
-.pnp.*
+# Turbo
+.turbo/
 
 # Build
-client/
-common/
-server/
-!src/client/
-!src/common/
-!src/server/
-index.d.ts
-index.js
+.next/
+dist/
+tsdoc-metadata.json

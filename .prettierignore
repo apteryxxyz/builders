@@ -1,0 +1,12 @@
+# Node
+.yarn/*
+node_modules/
+
+# Turbo
+.turbo/
+
+# Build
+.next/
+dist/
+
+*.hbs

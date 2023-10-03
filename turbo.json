@@ -1,0 +1,27 @@
+{
+  "$schema": "https://turbo.build/schema.json",
+  "//pipeline": {
+    "build": {
+      "dependsOn": ["^build"],
+      "inputs": ["src/**"],
+      "outputs": ["dist/**", ".next/**", "!.next/cache/**", "*.d.ts", "*.js"]
+    },
+    "docs": {
+      "dependsOn": ["build"],
+      "inputs": ["src/**"],
+      "outputs": ["docs/**"],
+      "cache": false
+    },
+    "lint": {}
+  },
+  "pipeline": {
+    "build": {
+      "dependsOn": ["^build"],
+      "outputs": [".next/**", "!.next/cache/**", "dist/**", "*.d.ts", "*.js"]
+    },
+    "lint": {
+      "outputs": []
+    }
+  },
+  "globalEnv": ["NODE_ENV", "APP_URL", "GITHUB_TOKEN"]
+}
