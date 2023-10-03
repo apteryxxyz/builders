@@ -5,9 +5,6 @@ settings:
   excludeLinksFromLockfile: false
 
 patchedDependencies:
-  '@microsoft/tsdoc-config@0.16.2':
-    hash: whu2nah757sf4uj4bzg42fuicq
-    path: patches/@microsoft__tsdoc-config@0.16.2.patch
   '@octokit/request@6.2.8':
     hash: wvhc6kz27jfh6vq6pfsltzb7me
     path: patches/@octokit__request@6.2.8.patch
@@ -70,9 +67,6 @@ importers:
       '@microsoft/tsdoc':
         specifier: ^0.14.2
         version: 0.14.2
-      '@microsoft/tsdoc-config':
-        specifier: ^0.16.2
-        version: 0.16.2(patch_hash=whu2nah757sf4uj4bzg42fuicq)
       '@octokit/rest':
         specifier: ^19.0.13
         version: 19.0.13
@@ -1089,7 +1083,7 @@ packages:
     resolution: {integrity: sha512-eiCnlayyum1f7fS2nA9pfIod5VCNR1G+Tq84V/ijDrKrOFVa598BLw145nCsGDMoFenV6ajNi2PR5WCwpAxW6Q==}
     dependencies:
       '@microsoft/tsdoc': 0.14.2
-      '@microsoft/tsdoc-config': 0.16.2(patch_hash=whu2nah757sf4uj4bzg42fuicq)
+      '@microsoft/tsdoc-config': 0.16.2
       '@rushstack/node-core-library': 3.59.7(@types/node@20.6.0)
     transitivePeerDependencies:
       - '@types/node'
@@ -1099,7 +1093,7 @@ packages:
     resolution: {integrity: sha512-vkojrM2fo3q4n4oPh4uUZdjJ2DxQ2+RnDQL/xhTWSRUNPF6P4QyrvY357HBxbnltKcYu+nNNolVqc6TIGQ73Ig==}
     dependencies:
       '@microsoft/tsdoc': 0.14.2
-      '@microsoft/tsdoc-config': 0.16.2(patch_hash=whu2nah757sf4uj4bzg42fuicq)
+      '@microsoft/tsdoc-config': 0.16.2
       '@rushstack/node-core-library': 3.61.0(@types/node@20.7.1)
     transitivePeerDependencies:
       - '@types/node'
@@ -1111,7 +1105,7 @@ packages:
     dependencies:
       '@microsoft/api-extractor-model': 7.27.6(@types/node@20.6.0)
       '@microsoft/tsdoc': 0.14.2
-      '@microsoft/tsdoc-config': 0.16.2(patch_hash=whu2nah757sf4uj4bzg42fuicq)
+      '@microsoft/tsdoc-config': 0.16.2
       '@rushstack/node-core-library': 3.59.7(@types/node@20.6.0)
       '@rushstack/rig-package': 0.4.1
       '@rushstack/ts-command-line': 4.15.2
@@ -1125,14 +1119,13 @@ packages:
       - '@types/node'
     dev: true
 
-  /@microsoft/tsdoc-config@0.16.2(patch_hash=whu2nah757sf4uj4bzg42fuicq):
+  /@microsoft/tsdoc-config@0.16.2:
     resolution: {integrity: sha512-OGiIzzoBLgWWR0UdRJX98oYO+XKGf7tiK4Zk6tQ/E4IJqGCe7dvkTvgDZV5cFJUzLGDOjeAXrnZoA6QkVySuxw==}
     dependencies:
       '@microsoft/tsdoc': 0.14.2
       ajv: 6.12.6
       jju: 1.4.0
       resolve: 1.19.0
-    patched: true
 
   /@microsoft/tsdoc@0.14.2:
     resolution: {integrity: sha512-9b8mPpKrfeGRuhFH5iO1iwCLeIIsV6+H1sRfxbkoGXIyQE2BTsPd9zqSqQJ+pv5sJ/hT5M1zvOFL02MnEezFug==}

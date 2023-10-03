@@ -1,8 +1,8 @@
 /* eslint-disable @typescript-eslint/no-unsafe-argument */
 /* eslint-disable @typescript-eslint/no-unsafe-assignment */
 
-import { readdir as listDirectory, readFile } from 'node:fs/promises';
-import { join as joinPath } from 'node:path';
+import { readdir as listDirectory, readFile } from 'fs/promises';
+import { join as joinPath } from 'path';
 import {
   ApiDeclaredItem,
   ApiEntryPoint,
@@ -12,7 +12,6 @@ import {
   type ApiPackage,
 } from '@microsoft/api-extractor-model';
 import { TSDocConfiguration } from '@microsoft/tsdoc';
-import { TSDocConfigFile } from '@microsoft/tsdoc-config';
 import { Octokit } from '@octokit/rest';
 import _ from 'lodash';
 import { flattenDocNode } from '@/utilities/api-serialize';
@@ -109,17 +108,12 @@ export async function fetchApi(name: string, release: Release) {
   const apiJson = await fetchContent(name, release, 'docs/api.json') //
     .then((content) => JSON.parse(content));
 
-  const tsdocConfiguration = new TSDocConfiguration();
-  const tsdocConfigObject = apiJson['metadata'].tsdocConfig as unknown;
-  const tsdocConfigFile = TSDocConfigFile.loadFromObject(tsdocConfigObject);
-  tsdocConfigFile.configureParser(tsdocConfiguration);
-
   const apiPackage = ApiItem.deserialize(apiJson, {
     apiJsonFilename: '',
     toolPackage: apiJson['metadata'].toolPackage,
     toolVersion: apiJson['metadata'].toolVersion,
     versionToDeserialize: apiJson['metadata'].schemaVersion,
-    tsdocConfiguration,
+    tsdocConfiguration: new TSDocConfiguration(),
   }) as ApiPackage;
 
   const model = new ApiModel();
