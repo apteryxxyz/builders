@@ -27,7 +27,8 @@
   },
   "pnpm": {
     "patchedDependencies": {
-      "@octokit/request@6.2.8": "patches/@octokit__request@6.2.8.patch"
+      "@octokit/request@6.2.8": "patches/@octokit__request@6.2.8.patch",
+      "@microsoft/tsdoc-config@0.16.2": "patches/@microsoft__tsdoc-config@0.16.2.patch"
     }
   }
 }
