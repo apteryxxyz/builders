@@ -5,11 +5,13 @@ import { fetchPackage } from '@/app/api';
 
 export const GET = new ApiRouteBuilder()
   .setParams(z.object({ package: z.string() }))
-  .setDefinition(async ({ params }) => {
+  .setDefinition(async ({ request, params }) => {
     const pacxage = await fetchPackage(params.package);
 
     const path = pacxage
       ? `/packages/${params.package}/${pacxage.releases[0].version}`
       : '/packages';
-    return NextResponse.redirect(new URL(path, process.env.APP_URL));
+    const url = new URL(path, request?.nextUrl.origin ?? process.env.APP_URL);
+
+    return NextResponse.redirect(url);
   });
