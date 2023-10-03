@@ -1,0 +1,7 @@
+*.js
+*.d.ts
+!*.config.js
+server/
+client/
+!src/client/
+!src/server/

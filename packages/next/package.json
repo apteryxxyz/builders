@@ -1,0 +1,62 @@
+{
+  "name": "@builders/next",
+  "version": "0.0.0",
+  "description": "",
+  "scripts": {
+    "build": "pnpm run build:clean && tsup",
+    "build:clean": "rm -rf entrypoints.d.ts index.js index.d.ts *-*.d.ts client server",
+    "docs": "api-extractor run --local --config api-extractor.json",
+    "docs:clean": "rm -rf docs/*",
+    "lint": "eslint . --ext .ts,.tsx",
+    "prepack": "pnpm run lint && pnpm run build && pnpm run docs",
+    "release": "pnpm prepack && git add docs/api.json cliff-jumper"
+  },
+  "files": [
+    "*.js",
+    "*.d.ts",
+    "client",
+    "server"
+  ],
+  "main": "index.js",
+  "types": "index.d.ts",
+  "directories": {
+    "lib": "src"
+  },
+  "author": {
+    "name": "Apteryx",
+    "email": "kiaora@apteryx.xyz",
+    "url": "https://apteryx.xyz/"
+  },
+  "contributors": [],
+  "license": "MIT",
+  "keywords": [],
+  "dependencies": {
+    "zod-validation-error": "^1.5.0"
+  },
+  "peerDependencies": {
+    "next": "*",
+    "react": "*",
+    "zod": "*"
+  },
+  "devDependencies": {
+    "@builders/eslint-config": "workspace:^",
+    "@builders/tsup-config": "workspace:^",
+    "@microsoft/api-extractor": "^7.36.4",
+    "@types/node": "^20.5.9",
+    "@types/react": "^18.2.21",
+    "lodash": "^4.17.21",
+    "next": "^13.4.19",
+    "react": "^18.2.0",
+    "react-dom": "^18.2.0",
+    "release-it": "^16.1.5",
+    "tslib": "^2.6.2",
+    "tsup": "^7.2.0",
+    "zod": "^3.22.2"
+  },
+  "eslintConfig": {
+    "root": true,
+    "extends": [
+      "@builders"
+    ]
+  }
+}

@@ -1,0 +1,11 @@
+{
+  "$schema": "https://json.schemastore.org/tsconfig",
+  "extends": "../../tsconfig.base.json",
+  "include": ["src/**/*.ts", "scripts/**/*.ts"],
+  "exclude": ["*.js", "*.mjs", "*.d.ts", "*.d.mts"],
+  "compilerOptions": {
+    "baseUrl": ".",
+    "paths": { "@/*": ["src/*"] },
+    "lib": ["dom", "dom.iterable"]
+  }
+}
