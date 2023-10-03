@@ -3,4 +3,4 @@ name: next
 monoRepo: true
 packagePath: packages/next
 tagTemplate: '{{full-name}}@{{new-version}}'
-commitMessageTemplate: 'chore(release): {{full-name}} v{{new-version}}'
+commitMessageTemplate: 'chore(release): `{{full-name}}` v{{new-version}}'

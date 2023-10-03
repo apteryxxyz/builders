@@ -1,6 +1,6 @@
 {
   "name": "@builders/next",
-  "version": "0.0.0",
+  "version": "0.1.0",
   "description": "",
   "scripts": {
     "build": "pnpm run build:clean && tsup",
@@ -9,10 +9,11 @@
     "docs:clean": "rm -rf docs/*",
     "lint": "eslint . --ext .ts,.tsx",
     "prepack": "pnpm run lint && pnpm run build && pnpm run docs",
-    "release": "pnpm prepack && git add docs/api.json cliff-jumper"
+    "release": "pnpm prepack && git add docs/api.json && cliff-jumper"
   },
   "files": [
     "*.js",
+    "!*.config.js",
     "*.d.ts",
     "client",
     "server"
