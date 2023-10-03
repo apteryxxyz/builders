@@ -1,0 +1,10 @@
+{
+  "buildCommand": "pnpm build",
+  "redirects": [
+    {
+      "source": "/packages/:package/:version/api",
+      "destination": "/packages/:package/:version",
+      "permanent": false
+    }
+  ]
+}

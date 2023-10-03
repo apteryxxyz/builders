@@ -1,0 +1,76 @@
+diff --git a/dist-node/index.js b/dist-node/index.js
+index 56df5ded36bd5f4cbb4a75545a7a70f8798b90dd..d9af41f35e47d91f3e4ff4d9bcd4949d70aa1b71 100644
+--- a/dist-node/index.js
++++ b/dist-node/index.js
+@@ -41,7 +41,6 @@ var VERSION = "6.2.8";
+ 
+ // pkg/dist-src/fetch-wrapper.js
+ var import_is_plain_object = require("is-plain-object");
+-var import_node_fetch = __toESM(require("node-fetch"));
+ var import_request_error = require("@octokit/request-error");
+ 
+ // pkg/dist-src/get-buffer-response.js
+@@ -58,8 +57,7 @@ function fetchWrapper(requestOptions) {
+   let headers = {};
+   let status;
+   let url;
+-  const fetch = requestOptions.request && requestOptions.request.fetch || globalThis.fetch || /* istanbul ignore next */
+-  import_node_fetch.default;
++  const fetch = requestOptions.request && requestOptions.request.fetch || globalThis.fetch;
+   return fetch(
+     requestOptions.url,
+     Object.assign(
+diff --git a/dist-src/fetch-wrapper.js b/dist-src/fetch-wrapper.js
+index 49dee58287bdd7a55e60b4d27f93ba07273851f2..4a0620a9857e320f99700319b1e5bfce15d1626e 100644
+--- a/dist-src/fetch-wrapper.js
++++ b/dist-src/fetch-wrapper.js
+@@ -1,5 +1,4 @@
+ import { isPlainObject } from "is-plain-object";
+-import nodeFetch, {} from "node-fetch";
+ import { RequestError } from "@octokit/request-error";
+ import getBuffer from "./get-buffer-response";
+ function fetchWrapper(requestOptions) {
+@@ -10,8 +9,7 @@ function fetchWrapper(requestOptions) {
+   let headers = {};
+   let status;
+   let url;
+-  const fetch = requestOptions.request && requestOptions.request.fetch || globalThis.fetch || /* istanbul ignore next */
+-  nodeFetch;
++  const fetch = requestOptions.request && requestOptions.request.fetch || globalThis.fetch;
+   return fetch(
+     requestOptions.url,
+     Object.assign(
+diff --git a/dist-web/index.js b/dist-web/index.js
+index 43a785e223d8d3e0249c3ae0712333b7d11e5d3f..d386ca41fac270a74f79a2aa812f575dd88dfa5c 100644
+--- a/dist-web/index.js
++++ b/dist-web/index.js
+@@ -7,7 +7,6 @@ var VERSION = "6.2.8";
+ 
+ // pkg/dist-src/fetch-wrapper.js
+ import { isPlainObject } from "is-plain-object";
+-import nodeFetch, {} from "node-fetch";
+ import { RequestError } from "@octokit/request-error";
+ 
+ // pkg/dist-src/get-buffer-response.js
+@@ -24,8 +23,7 @@ function fetchWrapper(requestOptions) {
+   let headers = {};
+   let status;
+   let url;
+-  const fetch = requestOptions.request && requestOptions.request.fetch || globalThis.fetch || /* istanbul ignore next */
+-  nodeFetch;
++  const fetch = requestOptions.request && requestOptions.request.fetch || globalThis.fetch;
+   return fetch(
+     requestOptions.url,
+     Object.assign(
+diff --git a/package.json b/package.json
+index 787976e5ccc6807432ee267beb25681c6e3585fa..8d833458cf795f25cde5b91ba02618b97fbe2e60 100644
+--- a/package.json
++++ b/package.json
+@@ -19,7 +19,6 @@
+     "@octokit/request-error": "^3.0.0",
+     "@octokit/types": "^9.0.0",
+     "is-plain-object": "^5.0.0",
+-    "node-fetch": "^2.6.7",
+     "universal-user-agent": "^6.0.0"
+   },
+   "devDependencies": {
