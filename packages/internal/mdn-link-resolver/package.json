@@ -1,0 +1,14 @@
+{
+  "name": "@builders/mdn-link-resolver",
+  "version": "0.0.0",
+  "private": true,
+  "scripts": {
+    "build": "tsup"
+  },
+  "main": "dist/index.js",
+  "types": "dist/index.d.ts",
+  "devDependencies": {
+    "@builders/tsup-config": "workspace:^",
+    "tsup": "^7.2.0"
+  }
+}
