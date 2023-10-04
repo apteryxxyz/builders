@@ -241,7 +241,6 @@ export class ApiRouteBuilder<TOptions extends ApiRouteBuilderOptions> {
       other: { params: Record<string, string | string[]> },
     ) => {
       if (!(request instanceof Request)) {
-        console.log('API route called directly', request);
         return executor(request);
       }
 

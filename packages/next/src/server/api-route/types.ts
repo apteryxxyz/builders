@@ -1,4 +1,3 @@
-import type { NextResponse } from 'next/server';
 import type { ApiError } from '@/shared/api-error';
 
 /**
@@ -18,15 +17,13 @@ export type ApiRoute<TParams, TSearch, TBody, TData> = Exclude<
   : ApiRoute.WithPayload<TParams, TSearch, TBody, TData>;
 
 export namespace ApiRoute {
-  /** See {@link ApiRoute} for documentation. */
-  export type WithoutPayload<TData> = () => Promise<
-    NextResponse<ResponsePayload<TData>>
-  >;
+  /** See {@link ApiRoute} for documentation, represents usage on the server. */
+  export type WithoutPayload<TData> = () => Promise<TData>;
 
-  /** See {@link ApiRoute} for documentation. */
+  /** See {@link ApiRoute} for documentation, represents usage on the server. */
   export type WithPayload<TParams, TSearch, TBody, TData> = (
     payload: RequestPayload<TParams, TSearch, TBody>,
-  ) => Promise<NextResponse<ResponsePayload<TData>>>;
+  ) => Promise<TData>;
 
   /**
    * Represents the request payload of an API route.
