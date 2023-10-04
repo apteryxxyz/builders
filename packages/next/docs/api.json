@@ -192,7 +192,7 @@
               "text": " "
             }
           ],
-          "fileUrlPath": "version-af8c9dac.d.ts",
+          "fileUrlPath": "version-4d5637ff.d.ts",
           "releaseTag": "Public",
           "isAbstract": false,
           "name": "ApiError",
@@ -417,7 +417,7 @@
               "text": "declare namespace ApiRoute "
             }
           ],
-          "fileUrlPath": "version-af8c9dac.d.ts",
+          "fileUrlPath": "version-4d5637ff.d.ts",
           "releaseTag": "Public",
           "name": "ApiRoute",
           "preserveMemberOrder": false,
@@ -785,7 +785,7 @@
             {
               "kind": "TypeAlias",
               "canonicalReference": "@builders/next!ApiRoute.WithoutPayload:type",
-              "docComment": "/**\n * See {@link ApiRoute} for documentation.\n */\n",
+              "docComment": "/**\n * See {@link ApiRoute} for documentation, represents usage on the server.\n */\n",
               "excerptTokens": [
                 {
                   "kind": "Content",
@@ -802,25 +802,7 @@
                 },
                 {
                   "kind": "Content",
-                  "text": "<"
-                },
-                {
-                  "kind": "Reference",
-                  "text": "NextResponse",
-                  "canonicalReference": "next!NextResponse:class"
-                },
-                {
-                  "kind": "Content",
-                  "text": "<"
-                },
-                {
-                  "kind": "Reference",
-                  "text": "ResponsePayload",
-                  "canonicalReference": "@builders/next!ApiRoute.ResponsePayload:type"
-                },
-                {
-                  "kind": "Content",
-                  "text": "<TData>>>"
+                  "text": "<TData>"
                 },
                 {
                   "kind": "Content",
@@ -844,13 +826,13 @@
               ],
               "typeTokenRange": {
                 "startIndex": 1,
-                "endIndex": 8
+                "endIndex": 4
               }
             },
             {
               "kind": "TypeAlias",
               "canonicalReference": "@builders/next!ApiRoute.WithPayload:type",
-              "docComment": "/**\n * See {@link ApiRoute} for documentation.\n */\n",
+              "docComment": "/**\n * See {@link ApiRoute} for documentation, represents usage on the server.\n */\n",
               "excerptTokens": [
                 {
                   "kind": "Content",
@@ -876,25 +858,7 @@
                 },
                 {
                   "kind": "Content",
-                  "text": "<"
-                },
-                {
-                  "kind": "Reference",
-                  "text": "NextResponse",
-                  "canonicalReference": "next!NextResponse:class"
-                },
-                {
-                  "kind": "Content",
-                  "text": "<"
-                },
-                {
-                  "kind": "Reference",
-                  "text": "ResponsePayload",
-                  "canonicalReference": "@builders/next!ApiRoute.ResponsePayload:type"
-                },
-                {
-                  "kind": "Content",
-                  "text": "<TData>>>"
+                  "text": "<TData>"
                 },
                 {
                   "kind": "Content",
@@ -951,7 +915,7 @@
               ],
               "typeTokenRange": {
                 "startIndex": 1,
-                "endIndex": 10
+                "endIndex": 6
               }
             }
           ]
@@ -997,7 +961,7 @@
               "text": ";"
             }
           ],
-          "fileUrlPath": "version-af8c9dac.d.ts",
+          "fileUrlPath": "version-4d5637ff.d.ts",
           "releaseTag": "Public",
           "name": "ApiRoute",
           "typeParameters": [
@@ -4737,7 +4701,7 @@
               "text": "declare namespace ServerAction "
             }
           ],
-          "fileUrlPath": "version-af8c9dac.d.ts",
+          "fileUrlPath": "version-4d5637ff.d.ts",
           "releaseTag": "Public",
           "name": "ServerAction",
           "preserveMemberOrder": false,
@@ -5053,7 +5017,7 @@
               "text": ";"
             }
           ],
-          "fileUrlPath": "version-af8c9dac.d.ts",
+          "fileUrlPath": "version-4d5637ff.d.ts",
           "releaseTag": "Public",
           "name": "ServerAction",
           "typeParameters": [
@@ -6584,7 +6548,7 @@
               "text": "string"
             }
           ],
-          "fileUrlPath": "version-af8c9dac.d.ts",
+          "fileUrlPath": "version-4d5637ff.d.ts",
           "isReadonly": true,
           "releaseTag": "Public",
           "name": "version",
